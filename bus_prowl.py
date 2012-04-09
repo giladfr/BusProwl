@@ -45,7 +45,7 @@ def time_to_next_bus(url):
     re_res_groups = re_res.groups()
     line_number = int(re_res_groups[0])
     if len (re_res_groups) == 1:
-        if '\xd7\x93\xd7\xa7\xd7\x94' in text:
+        if u'\u05d0\u05d7\u05ea' in text:
             time_to = 1
         else:
             time_to = 2

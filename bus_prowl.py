@@ -2,10 +2,7 @@
 from BeautifulSoup import BeautifulSoup,NavigableString
 import re
 import urllib2
-import codecs
-import os
 import sys
-import urllib
 import pyrowl
 import argparse
 import time
@@ -76,7 +73,8 @@ if __name__ == '__main__':
     
     bus_station_url = bus_stations[args.busstop]
     bus_station_name = args.busstop
-    prowl_priority = config["prowl_priority"]
+    normal_priority = config["normal_priority"]
+    high_priority = config["high_priority"]
     minute_threshold = config["minute_threshold"]
     check_interval = config["check_interval"]
 
@@ -85,7 +83,7 @@ if __name__ == '__main__':
 
     # First time check
     line_num,time_to = time_to_next_bus(bus_station_url)
-    send_messege(p,line_num,time_to,bus_station_url,prowl_priority)
+    send_messege(p,line_num,time_to,bus_station_url,normal_priority)
     last_time = time_to
     
     # if time_to < threshold, wait for the next bus also
@@ -95,7 +93,7 @@ if __name__ == '__main__':
             time.sleep(check_interval)
             line_num,time_to = time_to_next_bus(bus_station_url)
             if time_to < last_time:
-                send_messege(p,line_num,time_to,bus_station_url,prowl_priority)
+                send_messege(p,line_num,time_to,bus_station_url,normal_priority)
                 last_time = time_to
     
     # main bus wait loop
@@ -104,7 +102,10 @@ if __name__ == '__main__':
         time.sleep(check_interval)
         line_num,time_to = time_to_next_bus(bus_station_url)
         if time_to < last_time:
-            send_messege(p,line_num,time_to,bus_station_url,prowl_priority)
+            if time_to <=3 :
+                send_messege(p,line_num,time_to,bus_station_url,high_priority)
+            else:
+                send_messege(p,line_num,time_to,bus_station_url,normal_priority)
             last_time = time_to
     
     

@@ -1,7 +1,8 @@
 prowl_api_key : "697854991b6f266a4a0de4a9200abbe9bd641c48"
 check_interval : 30
 minute_threshold : 2
-prowl_priority : 1
+normal_priority : 1
+high_priority : 2
 bus_stations :
     149_Rotshild : http://m.ontime3g.com/?route=149&stop=37034&dir=1
     149_Kfar : http://m.ontime3g.com/?route=149&stop=21471&dir=2
